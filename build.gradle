@@ -1,0 +1,45 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:1.3.5.RELEASE")
+    classpath "io.spring.gradle:dependency-management-plugin:0.5.6.RELEASE"
+  }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+jar {
+  baseName = 'authorization-provider-sample'
+  version =  '0.0.1'
+}
+
+springBoot {
+  mainClass = 'com.provider.sample.ProviderSampleApplication'
+}
+
+repositories {
+  mavenCentral()
+  maven {
+      url 'http://repo.spring.io/milestone'
+  }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+  compile("org.springframework.boot:spring-boot-starter:${spring_boot_version}")
+  compile("org.springframework.boot:spring-boot-starter-web:${spring_boot_version}")
+  compile("org.springframework.boot:spring-boot-starter-security:${spring_boot_version}")
+  compile("org.springframework.security.oauth:spring-security-oauth2:${spring_security_version}")
+  compile("org.springframework.security:spring-security-jwt")
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.9'
+}
