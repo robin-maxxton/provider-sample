@@ -48,7 +48,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
      * The response will be either a object or null.
      * Based on that I want the client to grant access or deny it.
      */
-    clients.inMemory().withClient("username").secret("password").authorizedGrantTypes("client_credentials").scopes("openid");
+    clients.withClientDetails(new DynamicClientDetailsService());
   }
 
   @Override
@@ -58,7 +58,8 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
   @Override
   public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-    oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+    //oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+    oauthServer.allowFormAuthenticationForClients();
   }
 
 }
